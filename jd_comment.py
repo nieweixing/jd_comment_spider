@@ -1,8 +1,8 @@
+# -*- coding:utf-8 -*-
 import os
 import time
 import json
 import random
-
 import jieba
 import requests
 import numpy as np
@@ -15,7 +15,7 @@ WC_MASK_IMG = 'wawa.jpg'
 # 评论数据保存文件
 COMMENT_FILE_PATH = 'jd_comment.txt'
 # 词云字体
-WC_FONT_PATH = '/Library/Fonts/Songti.ttc'
+WC_FONT_PATH = 'C:\\Windows\\Fonts\\simsun.ttc'
 
 
 def spider_comment(page=0):
@@ -41,7 +41,7 @@ def spider_comment(page=0):
     # 遍历评论对象列表
     for r_json_comment in r_json_comments:
         # 以追加模式换行写入每条评价
-        with open(COMMENT_FILE_PATH, 'a+') as file:
+        with open(COMMENT_FILE_PATH, 'a+', encoding='UTF-8') as file:
             file.write(r_json_comment['content'] + '\n')
         # 打印评论对象中的评论内容
         print(r_json_comment['content'])
@@ -65,7 +65,7 @@ def cut_word():
     对数据分词
     :return: 分词后的数据
     """
-    with open(COMMENT_FILE_PATH) as file:
+    with open(COMMENT_FILE_PATH, encoding='UTF-8') as file:
         comment_txt = file.read()
         wordlist = jieba.cut(comment_txt, cut_all=True)
         wl = " ".join(wordlist)
@@ -95,7 +95,7 @@ def create_word_cloud():
 
 if __name__ == '__main__':
     # 爬取数据
-    # batch_spider_comment()
+    # batch_spider_comment(
 
     # 生成词云
     create_word_cloud()
